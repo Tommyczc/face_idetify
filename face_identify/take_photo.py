@@ -13,15 +13,16 @@ def CatchUsbVideo(window_name, camera_idx,front_num_photo,profile_num_photo):
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
     # 告诉OpenCV使用人脸识别分类器
-    classfier1 = cv2.CascadeClassifier("C:\\Users\\87066\\Downloads\\opencv\\build\etc\\haarcascades\\haarcascade_frontalface_alt2.xml")
-    classfier2 = cv2.CascadeClassifier("C:\\Users\\87066\\Downloads\\opencv\\build\etc\\haarcascades\\haarcascade_profileface.xml")
+    classfier1 = cv2.CascadeClassifier("F:\\CV\\opencv\\build\\etc\\haarcascades\\haarcascade_frontalface_alt2.xml")
+    classfier2 = cv2.CascadeClassifier("F:\\CV\\opencv\\build\\etc\\haarcascades\\haarcascade_profileface.xml")
 
     # 识别出人脸后要画的边框的颜色，RGB格式
     color1 = (0, 0, 255)
     color2 = (0, 255, 0)
     # 存储照片的路径
-    path1='F:\\CV\\Tommy_photo\\front'
-    path2='F:\\CV\\Tommy_photo\\profile'
+    path1='F:\\CV\\didi_photo\\front'
+    path2='F:\\CV\\didi_photo\\profile'
+    path3 = 'F:\\CV\\didi_photo\\other'
 
     while cap.isOpened():
         ok, frame = cap.read()  # 读取一帧数据
@@ -66,10 +67,10 @@ def CatchUsbVideo(window_name, camera_idx,front_num_photo,profile_num_photo):
                     print('profile saved')
                     #time.sleep(1)
 
-        if len(faceRects2) == 0 and len(faceRects1) == 0 and profile_num<profile_num_photo:
+        if len(faceRects2) == 0 and len(faceRects1) == 0 and profile_num<profile_num_photo and front_num<front_num_photo:
             c = cv2.waitKey(10)
             if c & 0xFF == ord('i'):
-                img_name = '%s/%d.jpg' % (path2, profile_num)
+                img_name = '%s/%d.jpg' % (path3, profile_num)
                 cv2.imwrite(img_name, frame)
                 profile_num += 1
                 print('unknowed saved')

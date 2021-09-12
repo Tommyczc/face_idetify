@@ -54,9 +54,9 @@ def read_path(path_name,username="tommy"):
             if dir_item.endswith('.jpg'):
                 image = cv2.imread(full_path)
                 image = resize_image(image, IMAGE_SIZE, IMAGE_SIZE)
-
+                #image=cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)
                 # 放开这个代码，可以看到resize_image()函数的实际调用效果
-                #cv2.imwrite('1.jpg', image)
+                # cv2.imwrite('1.jpg', image)
 
                 images.append(image)
                 if username=="tommy":
