@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     # 加载模型
     model = Model()
-    model.load_model(file_path='./model/tommy.front.model.h5')
+    model.load_model(file_path='model/tommy.h5')
 
     # 框住人脸的矩形边框颜色
     color = (0, 255, 0)
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
 
     # 人脸识别分类器本地存储路径
-    cascade_path = "F:\\CV\\opencv\\build\\etc\\haarcascades\\haarcascade_frontalface_alt2.xml"
+    cascade_path = "C:\\Users\\Tommy\\PycharmProjects\\face_idetify\\face_identify\\haarcascades\\haarcascade_frontalface_alt2.xml"
 
     # 循环检测识别人脸
     while True:

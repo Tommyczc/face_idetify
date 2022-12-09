@@ -15,8 +15,8 @@ def CatchUsbVideo(window_name, camera_idx, front_num_photo, profile_num_photo):
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
     # 告诉OpenCV使用人脸识别分类器
-    classfier1 = cv2.CascadeClassifier("F:\\CV\\opencv\\build\\etc\\haarcascades\\haarcascade_frontalface_alt2.xml")
-    classfier2 = cv2.CascadeClassifier("F:\\CV\\opencv\\build\\etc\\haarcascades\\haarcascade_profileface.xml")
+    classfier1 = cv2.CascadeClassifier("C:\\Users\\Tommy\\PycharmProjects\\face_idetify\\face_identify\\model\\haarcascades\\haarcascade_frontalface_alt2.xml")
+    classfier2 = cv2.CascadeClassifier("C:\\Users\\Tommy\\PycharmProjects\\face_idetify\\face_identify\\model\\haarcascades\\haarcascade_profileface.xml")
 
     # 识别出人脸后要画的边框的颜色，RGB格式
     color1 = (0, 0, 255)
@@ -85,7 +85,7 @@ def CatchUsbVideo(window_name, camera_idx, front_num_photo, profile_num_photo):
         cv2.imshow(window_name, frame)
         c = cv2.waitKey(10)
         if c & 0xFF == ord('q'):
-            break
+            break;
             # 释放摄像头并销毁所有窗口
     cap.release()
     cv2.destroyAllWindows()
