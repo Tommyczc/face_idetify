@@ -38,8 +38,10 @@ class Dataset:
         # 加载数据集到内存
         images, labels = load_dataset(self.path_name)
 
-        train_images, valid_images, train_labels, valid_labels = train_test_split(images, labels, test_size=0.3,random_state=random.randint(0, 100))
-        _, test_images, _, test_labels = train_test_split(images, labels, test_size=0.5,random_state=random.randint(0, 100))
+        train_images, valid_images, train_labels, valid_labels = train_test_split(images, labels, test_size=0.3,
+                                                                                  random_state=random.randint(0, 100))
+        _, test_images, _, test_labels = train_test_split(images, labels, test_size=0.5,
+                                                          random_state=random.randint(0, 100))
 
         # 当前的维度顺序如果为'th'，则输入图片数据时的顺序为：channels,rows,cols，否则:rows,cols,channels
         # 这部分代码就是根据keras库要求的维度顺序重组训练数据集
@@ -55,8 +57,6 @@ class Dataset:
             test_images = test_images.reshape(test_images.shape[0], img_rows, img_cols, img_channels)
             self.input_shape = (img_rows, img_cols, img_channels)
 
-
-
         # 输出训练集、验证集、测试集的数量
         print(train_images.shape[0], 'train samples')
         print(valid_images.shape[0], 'valid samples')
@@ -69,8 +69,7 @@ class Dataset:
         valid_labels = np_utils.to_categorical(valid_labels, nb_classes)
         test_labels = np_utils.to_categorical(test_labels, nb_classes)
 
-
-            # 像素数据浮点化以便归一化
+        # 像素数据浮点化以便归一化
         train_images = train_images.astype('float32')
         valid_images = valid_images.astype('float32')
         test_images = test_images.astype('float32')
@@ -100,7 +99,8 @@ class Model:
         # 输入: 3 通道 100x100 像素图像 -> (100, 100, 3) 张量。
         # 使用 32 个大小为 3x3 的卷积滤波器。
         print(dataset.input_shape)
-        self.model.add(Conv2D(32, (3, 3), activation='relu', data_format='channels_last',input_shape=dataset.input_shape))
+        self.model.add(
+            Conv2D(32, (3, 3), activation='relu', data_format='channels_last', input_shape=dataset.input_shape))
         self.model.add(Conv2D(32, (3, 3), activation='relu'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Dropout(0.25))
@@ -129,7 +129,7 @@ class Model:
         # 训练数据，有意识的提升训练数据规模，增加模型训练量
         if not data_augmentation:
             print(dataset.train_images.shape)
-            #self.model.fit(dataset.train_images,dataset.train_labels, batch_size=batch_size, epochs=nb_epoch)
+            # self.model.fit(dataset.train_images,dataset.train_labels, batch_size=batch_size, epochs=nb_epoch)
 
             self.model.fit(dataset.train_images,
                            dataset.train_labels,
@@ -160,10 +160,10 @@ class Model:
 
             # 利用生成器开始训练模型
             self.model.fit(datagen.flow(dataset.train_images, dataset.train_labels,
-                                                  batch_size=batch_size),
-                                     steps_per_epoch=dataset.train_images.shape[0],
-                                     epochs=nb_epoch,
-                                     validation_data=(dataset.valid_images, dataset.valid_labels))
+                                        batch_size=batch_size),
+                           steps_per_epoch=dataset.train_images.shape[0],
+                           epochs=nb_epoch,
+                           validation_data=(dataset.valid_images, dataset.valid_labels))
 
     MODEL_PATH = './tommy.face.model.h5'
 
@@ -193,10 +193,10 @@ class Model:
 
         # 给出输入属于各个类别的概率，我们是二值类别，则该函数会给出输入图像属于0和1的概率各为多少
         result = self.model.predict(image)
-        #print('result:', result)
+        # print('result:', result)
 
         # 给出类别预测：0或者1
-        #result = self.model.predict_classes(image)
+        # result = self.model.predict_classes(image)
 
         # 返回类别预测结果
         return result
@@ -212,7 +212,7 @@ if __name__ == '__main__':
     model.build_model(dataset)
 
     # 先前添加的测试build_model()函数的代码
-    #model.build_model(dataset)
+    # model.build_model(dataset)
 
     # 测试训练函数的代码
     model.train(dataset)
@@ -234,6 +234,3 @@ if __name__ == '__main__':
     model = Model()
     model.load_model(file_path='.\\model\\tommy.face.model.h5')
     model.evaluate(dataset)
-
-
-
